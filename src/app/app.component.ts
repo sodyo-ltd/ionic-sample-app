@@ -30,7 +30,7 @@ export class AppComponent {
       this.splashScreen.hide();
 
       cordova.plugins.SodyoSDK.init(
-        'eb80d13c60474639ba3d14719e85e2a4',
+        'API KEY',
         () => {
           this.isReady = true;
         },
