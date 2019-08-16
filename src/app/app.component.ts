@@ -6,8 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 declare var cordova: any;
 
-const sodyo = cordova.plugins.SodyoSDK;
-
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -32,7 +30,7 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      sodyo.init(
+      cordova.plugins.SodyoSDK.init(
         'API KEY',
         () => {
           this.isReady = true;
@@ -42,14 +40,14 @@ export class AppComponent {
         }
       );
 
-      sodyo.setUserInfo({ userName: 'Donald' });
-      sodyo.setAppUserId('123');
-      sodyo.setCustomAdLabel('label1,label2,label3');
-      sodyo.setScannerParams({ Prob_Size: 8 });
-      sodyo.setOverlayView('<a href="sodyosdk://handleCloseSodyoScanner">Close</a>');
-      sodyo.setOverlayCallback('handleCloseSodyoScanner', this.handleCloseSodyoScanner);
+      cordova.plugins.SodyoSDK.setUserInfo({ userName: 'Donald' });
+      cordova.plugins.SodyoSDK.setAppUserId('123');
+      cordova.plugins.SodyoSDK.setCustomAdLabel('label1,label2,label3');
+      cordova.plugins.SodyoSDK.setScannerParams({ Prob_Size: 8 });
+      cordova.plugins.SodyoSDK.setOverlayView('<a href="sodyosdk://handleCloseSodyoScanner">Close</a>');
+      cordova.plugins.SodyoSDK.setOverlayCallback('handleCloseSodyoScanner', this.handleCloseSodyoScanner);
 
-      sodyo.setErrorListener(
+      cordova.plugins.SodyoSDK.setErrorListener(
         (err) => {
           this.sodyoErr = err;
         },
@@ -58,10 +56,10 @@ export class AppComponent {
   }
 
   handleClick() {
-    sodyo.start(
+    cordova.plugins.SodyoSDK.start(
       (immediateData) => {
         this.immediateData = immediateData;
-        sodyo.close();
+        cordova.plugins.SodyoSDK.close();
       },
       (err) => {
         this.scannerErr = err;
@@ -69,6 +67,6 @@ export class AppComponent {
   }
 
   handleCloseSodyoScanner() {
-    sodyo.close();
+    cordova.plugins.SodyoSDK.close();
   }
 }
