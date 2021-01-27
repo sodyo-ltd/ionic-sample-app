@@ -16,6 +16,7 @@ export class AppComponent {
   sodyoErr = '';
   immediateData = '';
   scannerErr = '';
+  sodyoEvent = '';
 
   constructor(
     private platform: Platform,
@@ -31,7 +32,7 @@ export class AppComponent {
       this.splashScreen.hide();
 
       cordova.plugins.SodyoSDK.init(
-        'API KEY',
+        'APP KEY',
         () => {
           this.isReady = true;
         },
@@ -43,9 +44,11 @@ export class AppComponent {
       cordova.plugins.SodyoSDK.setUserInfo({ userName: 'Donald' });
       cordova.plugins.SodyoSDK.setAppUserId('123');
       cordova.plugins.SodyoSDK.setCustomAdLabel('label1,label2,label3');
-      cordova.plugins.SodyoSDK.setScannerParams({ Prob_Size: 8 });
       cordova.plugins.SodyoSDK.setOverlayView('<a href="sodyosdk://handleCloseSodyoScanner">Close</a>');
       cordova.plugins.SodyoSDK.setOverlayCallback('handleCloseSodyoScanner', this.handleCloseSodyoScanner);
+      cordova.plugins.SodyoSDK.setSodyoEventListener((eventName, eventData) => {
+        this.sodyoEvent = JSON.stringify(eventData);
+      });
 
       cordova.plugins.SodyoSDK.setErrorListener(
         (err) => {
