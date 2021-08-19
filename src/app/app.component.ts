@@ -35,20 +35,22 @@ export class AppComponent {
         'APP KEY',
         () => {
           this.isReady = true;
+
+          cordova.plugins.SodyoSDK.setSodyoLogoVisible(false);
+          cordova.plugins.SodyoSDK.setUserInfo({ userName: 'Donald' });
+          cordova.plugins.SodyoSDK.setAppUserId('123');
+          cordova.plugins.SodyoSDK.setCustomAdLabel('label1,label3');
+          cordova.plugins.SodyoSDK.setOverlayView('<a href="sodyosdk://handleCloseSodyoScanner">Close</a>');
+          cordova.plugins.SodyoSDK.setOverlayCallback('handleCloseSodyoScanner', this.handleCloseSodyoScanner);
+          cordova.plugins.SodyoSDK.setSodyoEventListener((eventName, eventData) => {
+            console.log(eventData, eventName);
+            this.sodyoEvent = JSON.stringify(eventData);
+          });
         },
         (err) => {
           this.initErr = err;
         }
       );
-
-      cordova.plugins.SodyoSDK.setUserInfo({ userName: 'Donald' });
-      cordova.plugins.SodyoSDK.setAppUserId('123');
-      cordova.plugins.SodyoSDK.setCustomAdLabel('label1,label2,label3');
-      cordova.plugins.SodyoSDK.setOverlayView('<a href="sodyosdk://handleCloseSodyoScanner">Close</a>');
-      cordova.plugins.SodyoSDK.setOverlayCallback('handleCloseSodyoScanner', this.handleCloseSodyoScanner);
-      cordova.plugins.SodyoSDK.setSodyoEventListener((eventName, eventData) => {
-        this.sodyoEvent = JSON.stringify(eventData);
-      });
 
       cordova.plugins.SodyoSDK.setErrorListener(
         (err) => {
