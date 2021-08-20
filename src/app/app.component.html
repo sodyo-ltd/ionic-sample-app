@@ -1,7 +1,9 @@
 <ion-app>
   <div style='margin: 15px'>
     <h1>Hello SodyoSDK</h1>
-    <h1 (click)='handleClick()' style='color: #3880ff'>Run scanner</h1>
+
+    <button (click)='handleClick()' style='background: #1da732; padding: 16px; margin-bottom: 16px;'>Run scanner</button>
+    <button (click)='handleOpenLastMarker()' style='background: #5491fc;padding: 16px;'>Open last marker</button>
 
     <div style='margin-top: 15px'>
       <p>isReady: {{isReady}}</p>
@@ -11,6 +13,7 @@
       <p>scannerErr: {{scannerErr}}</p>
       <p>scannerErr: {{scannerErr}}</p>
       <p>sodyoEvent: {{sodyoEvent}}</p>
+      <p>lastMarkerId: {{lastMarkerId}}</p>
     </div>
   </div>
 </ion-app>

@@ -17,6 +17,7 @@ export class AppComponent {
   immediateData = '';
   scannerErr = '';
   sodyoEvent = '';
+  lastMarkerId = null;
 
   constructor(
     private platform: Platform,
@@ -44,6 +45,7 @@ export class AppComponent {
           cordova.plugins.SodyoSDK.setOverlayCallback('handleCloseSodyoScanner', this.handleCloseSodyoScanner);
           cordova.plugins.SodyoSDK.setSodyoEventListener((eventName, eventData) => {
             console.log(eventData, eventName);
+            this.lastMarkerId = eventData.MarkerValue;
             this.sodyoEvent = JSON.stringify(eventData);
           });
         },
@@ -73,5 +75,17 @@ export class AppComponent {
 
   handleCloseSodyoScanner() {
     cordova.plugins.SodyoSDK.close();
+  }
+
+  handleOpenLastMarker() {
+    if (!this.lastMarkerId) {
+      return;
+    }
+
+    try {
+      cordova.plugins.SodyoSDK.performMarker(this.lastMarkerId);
+    } catch (err) {
+
+    }
   }
 }
